@@ -1,0 +1,71 @@
+
+{{ if not (hasKey .Values "backend_image_version") }}
+    {{ fail ".Values.backend_image_version is required" }}
+{{ end }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-backend-dpl
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      kind: {{ .Release.Name }}-postzegel-backend
+  template:
+    metadata:
+      labels:
+        kind: {{ .Release.Name }}-postzegel-backend
+    spec:
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: true
+      containers:
+        - name: {{ .Release.Name }}-pod
+          image: "ghcr.io/mvandermade/made-funicular-postzegel-reporter-kotlin:{{ .Values.backend_image_version }}"
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: SPRING_PROFILES_ACTIVE
+            valueFrom:
+              configMapKeyRef:
+                name: postzegel-reporter-configmap
+                key: SPRING_PROFILES_ACTIVE
+          - name: DB_USER
+            valueFrom:
+              configMapKeyRef:
+                name: postzegel-reporter-configmap
+                key: DB_USER
+          - name: DB_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: postzegel-reporter-configmap
+                key: DB_PASSWORD
+          - name: DB_JDBC_URL
+            valueFrom:
+              configMapKeyRef:
+                name: postzegel-reporter-configmap
+                key: DB_JDBC_URL
+          - name: KAFKA_BOOTSTRAP_SERVERS
+            valueFrom:
+              configMapKeyRef:
+                name: postzegel-reporter-configmap
+                key: KAFKA_BOOTSTRAP_SERVERS
+          - name: KAFKA_CLIENT_ID
+            valueFrom:
+              configMapKeyRef:
+                name: postzegel-reporter-configmap
+                key: KAFKA_CLIENT_ID
+          - name: STAMP_SERVER_URL
+            valueFrom:
+              configMapKeyRef:
+                name: postzegel-reporter-configmap
+                key: STAMP_SERVER_URL
+          - name: TZ
+            value: Europe/Amsterdam
+          ports:
+            - name: http
+              containerPort: 8080
+
+---
+

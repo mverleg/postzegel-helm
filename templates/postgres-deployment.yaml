@@ -1,0 +1,47 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-postgres-dpl
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      kind: {{ .Release.Name }}-postgres
+  template:
+    metadata:
+      labels:
+        kind: {{ .Release.Name }}-postgres
+    spec:
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: true
+      nodeSelector:
+        has-local-volume-mmade-postzegel: "1"
+
+      volumes:
+        - name: mmade-postzegel-volume
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-pvc
+
+      containers:
+        - name: {{ .Release.Name }}-pod
+          image: "postgres:17"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "{{ .Values.backend_image_version }}"
+            - name: POSTGRES_DB
+              value: "stamp_reporter"
+            - name: TZ
+              value: Europe/Amsterdam
+          ports:
+            - name: http
+              containerPort: 5432
+          volumeMounts:
+            - name: mmade-postzegel-volume
+              mountPath: /var/lib/postgresql/data
+
