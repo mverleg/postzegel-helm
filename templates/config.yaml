@@ -7,7 +7,7 @@ metadata:
 data:
   SPRING_PROFILES_ACTIVE: "production"
   DB_USER: "postgres"
-  DB_PASSWORD: "{{ .Values.backend_image_version }}"
+  DB_PASSWORD: "{{ .Values.postgress_pass }}"
   DB_JDBC_URL: "jdbc:postgresql://{{ .Release.Name }}-postgres-svc:5432/postzegel-reporter"
   KAFKA_BOOTSTRAP_SERVERS: "{{ .Release.Name }}-kafka-svc:9092"
   KAFKA_CLIENT_ID: "stamp-reporter"
