@@ -38,5 +38,5 @@ Address: https://postzegel.tryin.top/
   
 * Each time:
   ```shell
-  helm upgrade --install --create-namespace -n mmade-postzegel mmade-postzegel mmade/postzegel/
+  helm upgrade --install --create-namespace -n mmade-postzegel mmade-postzegel .
   ```

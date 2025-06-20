@@ -29,37 +29,37 @@ spec:
           - name: SPRING_PROFILES_ACTIVE
             valueFrom:
               configMapKeyRef:
-                name: postzegel-reporter-configmap
+                name: {{ .Release.Name }}-conf
                 key: SPRING_PROFILES_ACTIVE
           - name: DB_USER
             valueFrom:
               configMapKeyRef:
-                name: postzegel-reporter-configmap
+                name: {{ .Release.Name }}-conf
                 key: DB_USER
           - name: DB_PASSWORD
             valueFrom:
               configMapKeyRef:
-                name: postzegel-reporter-configmap
+                name: {{ .Release.Name }}-conf
                 key: DB_PASSWORD
           - name: DB_JDBC_URL
             valueFrom:
               configMapKeyRef:
-                name: postzegel-reporter-configmap
+                name: {{ .Release.Name }}-conf
                 key: DB_JDBC_URL
           - name: KAFKA_BOOTSTRAP_SERVERS
             valueFrom:
               configMapKeyRef:
-                name: postzegel-reporter-configmap
+                name: {{ .Release.Name }}-conf
                 key: KAFKA_BOOTSTRAP_SERVERS
           - name: KAFKA_CLIENT_ID
             valueFrom:
               configMapKeyRef:
-                name: postzegel-reporter-configmap
+                name: {{ .Release.Name }}-conf
                 key: KAFKA_CLIENT_ID
           - name: STAMP_SERVER_URL
             valueFrom:
               configMapKeyRef:
-                name: postzegel-reporter-configmap
+                name: {{ .Release.Name }}-conf
                 key: STAMP_SERVER_URL
           - name: TZ
             value: Europe/Amsterdam
