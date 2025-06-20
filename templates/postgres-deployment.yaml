@@ -1,4 +1,6 @@
 
+{{ $ := .Values.postgres_pass | required ".Values.postgres_pass is required" }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -33,7 +35,7 @@ spec:
             - name: POSTGRES_USER
               value: "postgres"
             - name: POSTGRES_PASSWORD
-              value: "{{ .Values.backend_image_version }}"
+              value: "{{ .Values.postgres_pass }}"
             - name: POSTGRES_DB
               value: "stamp_reporter"
             - name: TZ

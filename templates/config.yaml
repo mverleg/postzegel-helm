@@ -1,4 +1,6 @@
 
+{{ $ := .Values.postgres_pass | required ".Values.postgres_pass is required" }}
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,7 +9,7 @@ metadata:
 data:
   SPRING_PROFILES_ACTIVE: "production"
   DB_USER: "postgres"
-  DB_PASSWORD: "{{ .Values.postgress_pass }}"
+  DB_PASSWORD: "{{ .Values.postgres_pass }}"
   DB_JDBC_URL: "jdbc:postgresql://{{ .Release.Name }}-postgres-svc:5432/postzegel-reporter"
   KAFKA_BOOTSTRAP_SERVERS: "{{ .Release.Name }}-kafka-svc:9092"
   KAFKA_CLIENT_ID: "stamp-reporter"
