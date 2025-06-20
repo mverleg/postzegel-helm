@@ -13,9 +13,27 @@ https://github.com/mvandermade/made-funicular-postzegel
 
 Address: https://postzegel.tryin.top/
 
-* First time:
+* First time create a node volume
+  ```yaml
+  apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    name: mmade-postzegel-pv
+  spec:
+    capacity:
+      # space limit, not reserved
+      storage: 4Gi
+    volumeMode: Filesystem
+    accessModes:
+      - ReadWriteOnce
+    persistentVolumeReclaimPolicy: Retain
+    hostPath:
+      path: $DIR
+  ```
+
+* And tag the node to schedule all pods on the one that has the volume
   ```shell
-  create-host-volume mmade-postzegel  # on server
+  kubectl label node "NODENAME" has-local-volume-mmade-postzegel="1"
   ```
   
 * Each time:
