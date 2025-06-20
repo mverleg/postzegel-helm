@@ -1,5 +1,9 @@
 
-# Martijn van der Made
+# Postzegel!
+
+The Helm chart for https://github.com/mvandermade/made-funicular-postzegel
+
+Some links:
 
 https://github.com/mvandermade/made-funicular-postzegel-reporter-kotlin/blob/main/docker-compose.yml
 https://github.com/mvandermade/made-duper-kubernetes/tree/main/kubernetes_playground/postzegel-reporter/app
@@ -16,5 +20,5 @@ Address: https://postzegel.tryin.top/
   
 * Each time:
   ```shell
-  helmf mmade-postzegel mmade/postzegel/
+  helm upgrade --install --create-namespace -n mmade-postzegel mmade-postzegel mmade/postzegel/
   ```
