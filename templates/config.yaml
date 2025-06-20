@@ -10,8 +10,8 @@ data:
   SPRING_PROFILES_ACTIVE: "production"
   DB_USER: "postgres"
   DB_PASSWORD: "{{ .Values.postgres_pass }}"
-  DB_JDBC_URL: "jdbc:postgresql://{{ .Release.Name }}-postgres-svc:5432/postzegel-reporter"
+  DB_JDBC_URL: "jdbc:postgresql://{{ .Release.Name }}-postgres-svc:5432/stamp_reporter"
   KAFKA_BOOTSTRAP_SERVERS: "{{ .Release.Name }}-kafka-svc:9092"
   KAFKA_CLIENT_ID: "stamp-reporter"
-  STAMP_SERVER_URL: "http://postzegel-backend-service.postzegel-backend.svc.cluster.local:8080"
+  STAMP_SERVER_URL: "http://{{ .Release.Name }}-backend-svc:8080"
 
