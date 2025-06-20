@@ -8,7 +8,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-backend-dpl
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     type: Recreate
   selector:
