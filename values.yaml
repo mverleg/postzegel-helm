@@ -1,7 +1,3 @@
 
-# Release.Name
-# Release.Namespace
-
 domain: postzegel.tryin.top
 backend_image_version: d52c6a11505ee01d06c49233566d74dd51fdf89d
-postgress_pass: MLf8pnOgDNjZe6BN362
