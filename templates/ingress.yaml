@@ -26,6 +26,6 @@ spec:
               pathType: Prefix
               backend:
                 service:
-                  name: {{ .Release.Name }}-backend-svc
+                  name: {{ .Release.Name }}-reporter-svc
                   port:
                     number: 8080

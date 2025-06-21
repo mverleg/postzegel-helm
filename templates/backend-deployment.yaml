@@ -1,29 +1,29 @@
 
-{{ if not (hasKey .Values "backend_image_version") }}
-    {{ fail ".Values.backend_image_version is required" }}
+{{ if not (hasKey .Values "reporter_image_version") }}
+    {{ fail ".Values.reporter_image_version is required" }}
 {{ end }}
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-backend-dpl
+  name: {{ .Release.Name }}-reporter-dpl
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      kind: {{ .Release.Name }}-postzegel-backend
+      kind: {{ .Release.Name }}-postzegel-reporter
   template:
     metadata:
       labels:
-        kind: {{ .Release.Name }}-postzegel-backend
+        kind: {{ .Release.Name }}-postzegel-reporter
     spec:
       dnsPolicy: ClusterFirst
       enableServiceLinks: true
       containers:
         - name: {{ .Release.Name }}-pod
-          image: "ghcr.io/mvandermade/made-funicular-postzegel-reporter-kotlin:{{ .Values.backend_image_version }}"
+          image: "ghcr.io/mvandermade/made-funicular-postzegel-reporter-kotlin:{{ .Values.reporter_image_version }}"
           imagePullPolicy: IfNotPresent
           env:
           - name: SPRING_PROFILES_ACTIVE

@@ -13,5 +13,5 @@ data:
   DB_JDBC_URL: "jdbc:postgresql://{{ .Release.Name }}-postgres-svc:5432/stamp_reporter"
   KAFKA_BOOTSTRAP_SERVERS: "{{ .Release.Name }}-kafka-svc:9092"
   KAFKA_CLIENT_ID: "stamp-reporter"
-  STAMP_SERVER_URL: "http://{{ .Release.Name }}-backend-svc:8080"
+  STAMP_SERVER_URL: "http://{{ .Release.Name }}-reporter-svc:8080"
 
