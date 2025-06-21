@@ -12,3 +12,4 @@ spec:
     requests:
       # space limit, not reserved; should match PVC
       storage: 4Gi
+  storageClassName: standard

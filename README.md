@@ -29,7 +29,10 @@ Address: https://postzegel.tryin.top/
     persistentVolumeReclaimPolicy: Retain
     hostPath:
       path: $DIR
+    storageClassName: standard
   ```
+
+* Find out the NODENAME using `kubectl get node`
 
 * And tag the node to schedule all pods on the one that has the volume
   ```shell
@@ -39,4 +42,22 @@ Address: https://postzegel.tryin.top/
 * Each time:
   ```shell
   helm upgrade --install --create-namespace -n mmade-postzegel mmade-postzegel . --set postgres_pass='p455w0rd!'
+  ```
+
+* Check out result:
+  ```shell 
+  helm ls -n mmade-postzegel
+  ```
+
+* Removal
+  ```shell
+  helm uninstall -n mmade-postzegel mmade-postzegel
+  ```
+  ```shell
+  kubectl delete pv mmade-postzegel-pv
+  ```
+
+* Reclaim PV after uninstalling helm
+  ```shell
+  kubectl patch pv mmade-postzegel-pv -p '{"spec":{"claimRef": null}}'
   ```
